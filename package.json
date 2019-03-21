@@ -1,0 +1,13 @@
+{
+  "name": "shell-cache",
+  "version": "2019.03.21",
+  "description": "shell cache",
+  "keywords": [
+    "cache"
+  ],
+  "homepage": "https://github.com/looking-for-a-job/shell-cache",
+  "license": "Unlicense",
+  "bin": {
+    "shell-cache": "./scripts/shell-cache"
+  }
+}

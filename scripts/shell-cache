@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+{ set +x; } 2>/dev/null
+
+usage() {
+    echo "usage: $(basename $0) key [value]" 1>&2
+    [[ $1 == "-h" ]] || [[ $1 == "--help" ]]; exit
+}
+
+[[ $1 == "-h" ]] || [[ $1 == "--help" ]] && usage "$@"
+
+[[ $# == 0 ]] || [[ -z "$1" ]] && usage
+
+XDG_CACHE_HOME="${XDG_CACHE_HOME-$HOME/.cache}"
+SHELL_CACHE="${SHELL_CACHE-$XDG_CACHE_HOME/shell-cache}"
+
+path="$SHELL_CACHE/$1"
+! [ -e "${path%/*}" ] && { mkdir -p "${path%/*}" || exit; }
+[[ $# == 1 ]] && { [ -e "$path" ] && { cat "$path" || exit; } || exit; }
+echo "${@:2}" > "$path"
