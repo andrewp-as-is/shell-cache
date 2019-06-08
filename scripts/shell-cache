@@ -13,7 +13,8 @@ usage() {
 XDG_CACHE_HOME="${XDG_CACHE_HOME-$HOME/.cache}"
 SHELL_CACHE="${SHELL_CACHE-$XDG_CACHE_HOME/shell-cache}"
 
-path="$SHELL_CACHE/$1"
+shasum="$(echo "$1" | shasum -a 1 | awk '{print $1}')"
+path="$SHELL_CACHE/$shasum"
 ! [ -e "${path%/*}" ] && { mkdir -p "${path%/*}" || exit; }
 [[ $# == 1 ]] && { ! [ -e "$path" ] && exit; cat "$path"; exit; }
 echo "${@:2}" > "$path"
